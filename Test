@@ -1,0 +1,38 @@
+import numpy as np
+
+halflife = [55.72, 22.72, 6.22, 2.3, 0.610, 0.230]
+yield_fraction = [0.00052, 0.00346, 0.00310, 0.00624, 0.00182, 0.00066]
+yield_fraction = [i/np.min(yield_fraction) for i in yield_fraction]
+
+# Uran
+decay_U = [0.0124, 0.0305, 0.111, 0.301, 1.14, 3.01]
+tau_U = [1/i for i in decay_U]
+beta_list_U = [0.000215, 0.001424, 0.001274, 0.002568, 0.000748, 0.000273]
+beta_U = np.sum(beta_list_U)
+
+# Thorium
+decay_Th = [0.0126, 0.0337, 0.139, 0.325, 1.13, 2.5]
+tau_Th = [1/i for i in decay_Th]
+beta_list_Th = [0.000224, 0.000777, 0.000655, 0.000723, 0.000133, 0.000088]
+beta_Th = np.sum(beta_list_Th)
+
+# Plutonium
+decay_Pu = [0.0128, 0.0301, 0.124, 0.325, 1.12, 2.69]
+tau_Pu = [1/i for i in decay_Pu]
+beta_list_Pu = [0.000073, 0.000626, 0.000443, 0.000685, 0.000181, 0.000092]
+beta_Pu = np.sum(beta_list_Pu)
+
+b = 0
+for count, ele in enumerate(decay_Pu):
+    x = tau_Pu[count]
+    y = beta_list_Pu[count]
+    b += x*y
+
+print(b)
+
+
+# l_U = 0.08488246103215057
+# l_Th = 0.048023252115223215
+# l_Pu = 0.0324758978318962
+
+I_d = (1-beta_U)*10**-4 + b
